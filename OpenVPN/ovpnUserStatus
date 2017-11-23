@@ -1,0 +1,23 @@
+#!	/usr/bin/env bash
+#
+#  Script for export number of OpenVPN Client in file
+#  (C) Nikos Isaris 2017
+#  Published under the GPL V2
+#  Version 0.1
+#
+
+RUN="run"
+vpnusers="/home/nick/logs/vpnuser_status"
+
+while [ "$RUN" = "run" ] #an h metavliti einai isi me yes ektelese
+
+do
+
+ if [ -z "`pivpn -c |grep "No Clients Connected"`" ]; then #if you dont find results then run
+	pivpn -c |sed 1,7d |sed '/^\s*$/d'|wc -l > $vpnusers #take the number of lines (client number) and export in file (this command cut first 7 lines and the empty lines via sed)
+	sleep 30
+   else
+        echo "No Clients" > $vpnusers
+	sleep 30
+ fi
+done
