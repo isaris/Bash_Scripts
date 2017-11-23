@@ -1,0 +1,28 @@
+#!	/usr/bin/env bash
+#
+#  Script file shutdown
+#  (C) Nikos Isaris 2017
+#  Published under the GPL V2
+#  Version 0.1
+#
+
+#Variables
+RUN="run"
+DIR="/home/nick"
+DOWNFILE="downpc"
+
+while [ "$RUN" = "run" ]
+
+do
+
+   if [ -n "`ls $DIR|grep $DOWNFILE`" ]; then
+    rm $DIR/$DOWNFILE*
+    shutdown -p now
+    exit 0
+
+    else
+     sleep 60
+
+  fi
+
+ done

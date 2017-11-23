@@ -1,0 +1,34 @@
+#!	/usr/bin/env bash
+#
+#  Script for after backup shutdown
+#  (C) Nikos Isaris 2017
+#  Published under the GPL V2
+#  Version 0.1
+#
+
+
+#Variables
+RUN="run"
+DIR="/home/nick"
+DOWNFILE="backup"
+IP="192.168.100.100"
+
+while [ "$RUN" = "run" ]
+
+do
+
+   if [ -n "`ls $DIR|grep $DOWNFILE`" ]; then
+     if [ -z "`ping -c1 -W1000 $IP|grep 64`" ]; then
+    	rm $DIR/$DOWNFILE*
+    	shutdown -p now
+    	exit 0
+     else
+        sleep 60
+     fi
+
+    else
+     sleep 60
+
+  fi
+
+ done
